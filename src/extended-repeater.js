@@ -18,32 +18,26 @@ const { NotImplementedError } = require('../extensions/index.js');
 function repeater(str, options) {
   let result = '';
   let additionString = '';
-  
+
   options.repeatTimes ? options.repeatTimes : options.repeatTimes = 1;
   options.additionRepeatTimes ? options.additionRepeatTimes : options.additionRepeatTimes = 1;
-  
+  options.additionSeparator ? options.additionSeparator : options.additionSeparator = '|';
+  options.separator ? options.separator : options.separator = '+';
+
   for (let i = 0; i < options.additionRepeatTimes; i++) {
     if (options.addition === undefined) break;
-    additionString += options.addition + '     ';
+    additionString += options.addition;
+    (i === options.additionRepeatTimes - 1) ? additionString : additionString += options.additionSeparator;
   }
 
-  additionString = additionString.trim().split('     ').join(options.additionSeparator ? options.additionSeparator : '|');
-  
   for (let i = 0; i < options.repeatTimes; i++) {
-    result += str + additionString + '     ';
+    result += str + additionString;
+    (i === options.repeatTimes - 1) ? result : result += options.separator;
   }
-  
-  result = result.trim().split('     ').join(options.separator ? options.separator : '+');
-  
-  console.log(result);
+
   return result;
 }
 
-let obj =  { repeatTimes: 3, separator: '♥♥♥  ', addition: ' пОкАкУнЬкАл ', additionRepeatTimes: 5, additionSeparator: '( ͡° ͜ʖ ͡°)' };
-
-            //  аГуСиК  пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ♥♥♥  аГуСиК  пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ♥♥♥  аГуСиК  пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл ( ͡° ͜ʖ ͡°) пОкАкУнЬкАл 
-
- repeater('аГуСиК ', obj)
 
 module.exports = {
   repeater
